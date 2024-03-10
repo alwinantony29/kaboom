@@ -1,3 +1,5 @@
+- its a game library i am trying to make the chrome dino-ish game 
+
 # Folder structure
 
 - `src` - source code for your kaboom project
