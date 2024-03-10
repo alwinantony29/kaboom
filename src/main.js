@@ -1,33 +1,14 @@
 import kaboom from "kaboom";
-import { gameScene } from "./scenes/game-scene";
+import { gameStart } from "./scenes/game-start";
+import { gameOver } from "./scenes/game-over";
+import { intro } from "./scenes/intro";
 
-kaboom();
+kaboom({ background: [191, 219, 255] });
 loadSprite("bean", "sprites/bean.png");
 setGravity(1600);
 
-scene("game-start", gameScene);
+scene("game-start", gameStart);
+scene('intro',intro)
+scene("game-over", gameOver);
 
-scene("game-over", (score) => {
-	debug.log(score)
-  add([text("Game Over"), pos(center()), anchor("center")]);
-  add([
-    sprite("bean"),
-    pos(width() / 2, height() / 2 - 80),
-    scale(2),
-    anchor("center"),
-  ]);
-
-  // display score
-  add([
-    text(score),
-    pos(width() / 2, height() / 2 + 80),
-    scale(2),
-    anchor("center"),
-  ]);
-
-  // go back to game with space is pressed
-  onKeyPress("space", () => go("game-start"));
-  onClick(() => go("game-start"));
-});
-
-go("game");
+go("game-start");
