@@ -6,12 +6,13 @@ let SPEED = 320;
 export function spawnTree() {
   SPEED ++;
   add([
-    rect(48, rand(32, 96)),
+    sprite('aama'),
+    // rect(48, rand(32, 96)),
     area(),
-    outline(4),
+    // outline(4),
     pos(width(), height() - FLOOR_HEIGHT),
     anchor("botleft"),
-    color(255, 180, 255),
+    // color(255, 180, 255),
     move(LEFT, SPEED),
     "tree",
   ]);
