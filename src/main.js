@@ -1,40 +1,33 @@
 import kaboom from "kaboom";
+import { gameScene } from "./scenes/game-scene";
 
 kaboom();
 loadSprite("bean", "sprites/bean.png");
-
-const bean = add([sprite("bean"), pos(80, 40), area(), body()]);
-// add platform
-add([
-  rect(width(), 48),
-  pos(0, height() - 48),
-  outline(4),
-  area(),
-  body({ isStatic: true }),
-  color(127, 200, 255),
-]);
-// add tree
-add([
-  rect(48, 64),
-  area(),
-  outline(4),
-  pos(width(), height() - 48),
-  anchor("botleft"),
-  color(255, 180, 255),
-  move(LEFT, 240),
-  "tree",
-]);
-
 setGravity(1600);
-onKeyPress("space", () => {
-  if (bean.isGrounded()) {
-    bean.jump();
-  }
+
+scene("game-start", gameScene);
+
+scene("game-over", (score) => {
+	debug.log(score)
+  add([text("Game Over"), pos(center()), anchor("center")]);
+  add([
+    sprite("bean"),
+    pos(width() / 2, height() / 2 - 80),
+    scale(2),
+    anchor("center"),
+  ]);
+
+  // display score
+  add([
+    text(score),
+    pos(width() / 2, height() / 2 + 80),
+    scale(2),
+    anchor("center"),
+  ]);
+
+  // go back to game with space is pressed
+  onKeyPress("space", () => go("game-start"));
+  onClick(() => go("game-start"));
 });
 
-onClick(() => addKaboom(mousePos()));
-
-bean.onCollide("tree", () => {
-  addKaboom(bean.pos);
-  shake();
-});
+go("game");
